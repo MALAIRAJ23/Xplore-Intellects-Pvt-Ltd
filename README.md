@@ -142,6 +142,34 @@ npm run dev
 Frontend runs on:
 - `http://localhost:5173`
 
+## MongoDB Atlas Deployment Notes
+
+If you plan to deploy TaskHive in the future, MongoDB Atlas is the recommended database option. The backend already reads all database settings from `MONGO_URI`, so deployment only needs an Atlas connection string and the correct environment values.
+
+### What to set up in Atlas
+- Create a MongoDB Atlas cluster.
+- Create a database user with a strong password.
+- Add your deployment IP address or allow access from the hosting environment.
+- Copy the Atlas connection string and replace the placeholder values with your username, password, and database name.
+
+### Environment values to update for deployment
+- `MONGO_URI` should point to your Atlas cluster.
+- `JWT_SECRET` should be a strong, unique secret.
+- `CLIENT_URL` should match the deployed frontend URL.
+- `ADMIN_EMAIL` and `ADMIN_PASSWORD` should be changed if you want a different default admin account.
+
+### Example Atlas connection string
+```bash
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/xplore_intellects?retryWrites=true&w=majority
+```
+
+### Deployment checklist
+- Keep `MONGO_URI` in your deployment platform's environment variables, not in the frontend code.
+- Make sure the backend can reach Atlas over the network.
+- Verify the database name matches the one used by the app.
+- Confirm the backend starts successfully before connecting the frontend.
+- If you move the frontend to a deployed domain, update the backend CORS and client URL settings together.
+
 ## Default Admin Credentials
 
 The backend auto-creates the default admin account on startup using the values defined in the backend `.env` file.
@@ -151,6 +179,16 @@ Default credentials:
 - Password: `Admin@123`
 
 You can change these values in the backend environment file if needed.
+
+## Sample Employee Login
+
+For quick testing and demo purposes, you can use this sample employee account after it has been created and approved in the system:
+
+- Name: `employee1`
+- Email: `employee123@gmail.com`
+- Password: `employee123`
+
+If you use a different employee record in your database, update these credentials accordingly.
 
 ## API Summary
 
@@ -187,6 +225,7 @@ The UI is designed to work across multiple screen sizes:
 
 ## Notes
 
-- Make sure MongoDB is running before starting the backend.
+- For local development, make sure MongoDB is running before starting the backend.
+- For deployment, use MongoDB Atlas and provide the Atlas `MONGO_URI` through environment variables.
 - Employee accounts are created with `pending` status and must be approved by an admin before login.
 - The frontend uses custom CSS rather than Tailwind CSS.
