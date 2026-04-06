@@ -142,28 +142,33 @@ npm run dev
 Frontend runs on:
 - `http://localhost:5173`
 
-## MongoDB Atlas Deployment Notes
+## Database Setup and Future MongoDB Atlas Plan
 
-If you plan to deploy TaskHive in the future, MongoDB Atlas is the recommended database option. The backend already reads all database settings from `MONGO_URI`, so deployment only needs an Atlas connection string and the correct environment values.
+TaskHive currently uses a local MongoDB database for development and testing. MongoDB Atlas is planned for future enhancements and deployment workflows, but it is not required for the current setup.
 
-### What to set up in Atlas
-- Create a MongoDB Atlas cluster.
+### Current local setup
+- Run MongoDB locally on your machine.
+- Keep `MONGO_URI` pointing to your local MongoDB instance.
+- Use the backend `.env` file to store the local connection string.
+
+### Future Atlas enhancement plan
+- Create a MongoDB Atlas cluster when you are ready to move to cloud hosting.
 - Create a database user with a strong password.
 - Add your deployment IP address or allow access from the hosting environment.
-- Copy the Atlas connection string and replace the placeholder values with your username, password, and database name.
+- Replace the local `MONGO_URI` with the Atlas connection string.
 
-### Environment values to update for deployment
-- `MONGO_URI` should point to your Atlas cluster.
+### Environment values to update for future deployment
+- `MONGO_URI` can later point to your Atlas cluster.
 - `JWT_SECRET` should be a strong, unique secret.
 - `CLIENT_URL` should match the deployed frontend URL.
 - `ADMIN_EMAIL` and `ADMIN_PASSWORD` should be changed if you want a different default admin account.
 
-### Example Atlas connection string
+### Example Atlas connection string for future use
 ```bash
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/xplore_intellects?retryWrites=true&w=majority
 ```
 
-### Deployment checklist
+### Future deployment checklist
 - Keep `MONGO_URI` in your deployment platform's environment variables, not in the frontend code.
 - Make sure the backend can reach Atlas over the network.
 - Verify the database name matches the one used by the app.
@@ -226,6 +231,6 @@ The UI is designed to work across multiple screen sizes:
 ## Notes
 
 - For local development, make sure MongoDB is running before starting the backend.
-- For deployment, use MongoDB Atlas and provide the Atlas `MONGO_URI` through environment variables.
+- MongoDB Atlas is reserved for future enhancements and cloud deployment.
 - Employee accounts are created with `pending` status and must be approved by an admin before login.
 - The frontend uses custom CSS rather than Tailwind CSS.
