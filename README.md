@@ -1,32 +1,62 @@
 # TaskHive
 
-A complete MERN web application with two role-based portals:
+TaskHive is a responsive MERN application for admin-controlled employee onboarding and task management. It includes a secure approval workflow, role-based dashboards, task assignment, task progress tracking, and a polished glassmorphism UI built for desktop, tablet, and mobile layouts.
+
+## Overview
+
+The system has two portals:
 - Admin Portal
 - Employee Portal
 
-It supports employee registration approval workflow, secure JWT authentication, task assignment, and task progress tracking.
+Admin users can review registrations, approve or reject employees, assign tasks, and monitor task progress.
 
-## Features
+Employees can register, wait for approval, log in after approval, view assigned tasks, and update task status.
 
-### Authentication & Authorization
-- JWT-based login for admin and employees
-- Password hashing using bcrypt
-- Default admin account auto-seeded on server startup
-- Employees cannot login until admin approval
-- Route protection with role-based authorization middleware
+## Key Features
+
+### Authentication & Access Control
+- JWT-based authentication for admin and employee accounts
+- Employee registration with pending approval status
+- Admin approval workflow before employee login is allowed
+- Protected routes based on user role
+- Password hashing with bcrypt
 
 ### Admin Portal
-- Secure login
-- View all employee registrations
-- Approve or reject employees
-- Assign tasks with title, description, deadline
-- View all tasks and monitor status progress
+- Top navigation bar with Dashboard, Employee Management, and Task Overview links
+- Profile dropdown on the right side
+- Analytics cards for employee and task counts
+- Clean employee registration list with initials avatars and status badges
+- Approve and reject actions with compact icon buttons
+- Task assignment card with priority selection
+- Kanban-style task overview for Pending, In Progress, and Completed tasks
 
 ### Employee Portal
-- Register account (name, email, password)
-- Login only after admin approval
-- View assigned tasks
-- Update task status: Pending, In Progress, Completed
+- Top navigation bar with dashboard sections
+- Task summary cards
+- Responsive task board grouped by status
+- Status updates for assigned tasks
+- Clean, mobile-friendly layout
+
+### UI and UX
+- Glassmorphism cards and soft shadows
+- Teal and dark green professional theme
+- Fully responsive layouts for mobile, tablet, and desktop
+- Custom animated TaskHive brand title
+- Background particle animation on auth pages
+
+## Technology Stack
+
+### Core Stack
+- MongoDB
+- Express.js
+- React.js
+- Node.js
+
+### Supporting Frontend Tools
+- React Router
+- Axios
+- Vite
+- Custom CSS
 
 ## Project Structure
 
@@ -58,104 +88,105 @@ It supports employee registration approval workflow, secure JWT authentication, 
 └── README.md
 ```
 
-## Tech Stack
+## Installation
 
-- MongoDB
-- Express.js
-- React.js (Vite)
-- Node.js
+### 1. Backend Setup
 
-## Backend Setup
-
-1. Open terminal in `backend` folder.
-2. Install packages:
+Open a terminal in the `backend` folder and install the backend dependencies:
 
 ```bash
 npm install
 ```
 
-3. Create `.env` from `.env.example`:
+Create a `.env` file from `.env.example`:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Update environment values if needed:
+Update the environment variables if needed:
 - `MONGO_URI`
 - `JWT_SECRET`
 - `ADMIN_EMAIL`
 - `ADMIN_PASSWORD`
 
-5. Start backend server:
+Start the backend server:
 
 ```bash
 npm run dev
 ```
 
-Backend runs on `http://localhost:5000`.
+Backend runs on:
+- `http://localhost:5000`
 
-## Frontend Setup
+### 2. Frontend Setup
 
-1. Open terminal in `frontend` folder.
-2. Install packages:
+Open a terminal in the `frontend` folder and install the frontend dependencies:
 
 ```bash
 npm install
 ```
 
-3. Create `.env` from `.env.example`:
+Create a `.env` file from `.env.example`:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Start frontend:
+Start the frontend app:
 
 ```bash
 npm run dev
 ```
 
-Frontend runs on `http://localhost:5173`.
+Frontend runs on:
+- `http://localhost:5173`
 
 ## Default Admin Credentials
 
-The backend auto-creates admin on first startup using env values:
+The backend auto-creates the default admin account on startup using the values defined in the backend `.env` file.
+
+Default credentials:
 - Email: `admin@taskms.com`
 - Password: `Admin@123`
 
-You can override via environment variables in backend `.env`.
+You can change these values in the backend environment file if needed.
 
 ## API Summary
 
 ### Auth APIs
-- `POST /api/auth/register` - Register employee
-- `POST /api/auth/login` - Login admin/employee
+- `POST /api/auth/register` - Register a new employee
+- `POST /api/auth/login` - Login as admin or employee
 
-### Admin APIs (Admin JWT required)
-- `GET /api/admin/employees` - List employees
-- `PATCH /api/admin/employees/:employeeId/status` - Approve/reject employee
-- `POST /api/admin/tasks` - Assign task
-- `GET /api/admin/tasks` - List all tasks
+### Admin APIs
+- `GET /api/admin/employees` - View employee registrations
+- `PATCH /api/admin/employees/:employeeId/status` - Approve or reject an employee
+- `POST /api/admin/tasks` - Assign a new task
+- `GET /api/admin/tasks` - View all tasks
 
-### Employee APIs (Employee JWT required)
-- `GET /api/employee/tasks` - List assigned tasks
+### Employee APIs
+- `GET /api/employee/tasks` - View assigned tasks
 - `PATCH /api/employee/tasks/:taskId/status` - Update task status
 
 ## Security
 
-- JWT token auth
+- JWT authentication
+- Role-based route protection
 - bcrypt password hashing
-- role-based middleware
 - express-validator input validation
 - helmet and CORS hardening
-- centralized error handling
+- Centralized error handling
+
+## Responsive Layout Notes
+
+The UI is designed to work across multiple screen sizes:
+- Mobile-first responsive dashboards
+- Stacked layouts on smaller screens
+- Horizontal navigation collapse behavior on tablet and mobile
+- Glass cards and compact form sections that scale cleanly
 
 ## Notes
 
-- Ensure MongoDB is running before backend startup.
-- Employee accounts are created with `pending` status and require admin action.
-- Task status colors in dashboards:
-  - Pending (yellow)
-  - In Progress (blue)
-  - Completed (green)
-"# Xplore-Intellects-Pvt-Ltd" 
+- Make sure MongoDB is running before starting the backend.
+- Employee accounts are created with `pending` status and must be approved by an admin before login.
+- The frontend uses custom CSS rather than Tailwind CSS.
